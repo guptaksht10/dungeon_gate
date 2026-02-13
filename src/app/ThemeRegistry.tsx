@@ -3,6 +3,7 @@
 import * as React from "react";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
+import type { EmotionCache } from "@emotion/cache";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useServerInsertedHTML } from "next/navigation";
@@ -13,7 +14,7 @@ export default function ThemeRegistry({
   children: React.ReactNode;
 }) {
   const [{ cache, flush }] = React.useState(() => {
-    const cache = createCache({
+    const cache: EmotionCache = createCache({
       key: "mui",
       prepend: true,
     });
@@ -23,7 +24,7 @@ export default function ThemeRegistry({
     const prevInsert = cache.insert;
     let inserted: string[] = [];
 
-    cache.insert = (...args: any) => {
+    cache.insert = (...args: Parameters<typeof prevInsert>) => {
       const serialized = args[1];
 
       if (cache.inserted[serialized.name] === undefined) {
@@ -55,6 +56,7 @@ export default function ThemeRegistry({
 
     return (
       <style
+        key="mui-emotion"
         data-emotion={`mui ${names.join(" ")}`}
         dangerouslySetInnerHTML={{ __html: styles }}
       />
