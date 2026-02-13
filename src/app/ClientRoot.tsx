@@ -1,0 +1,28 @@
+"use client";
+
+import ThemeRegistry from "./ThemeRegistry";
+import Providers from "./providers";
+import GlobalAudio from "../components/GlobalAudio";
+import TerminalBar from "../components/TerminalBar";
+import SFXPlayer from "../components/SFXPlayer";
+import LockWrapper from "../components/LockWrapper";
+
+export default function ClientRoot({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <ThemeRegistry>
+      <SFXPlayer>
+        <LockWrapper>
+          <Providers>
+            <GlobalAudio />
+            {children}
+            <TerminalBar />
+          </Providers>
+        </LockWrapper>
+      </SFXPlayer>
+    </ThemeRegistry>
+  );
+}

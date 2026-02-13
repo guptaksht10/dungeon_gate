@@ -39,15 +39,16 @@ export default function Instructions() {
 
   /* ---------------- CHECK DB ---------------- */
 
-  useEffect(() => {
-    const nick = localStorage.getItem("player_nick");
+   useEffect(() => {
+  if (typeof window === "undefined") return;
 
-    if (!nick) {
-      setLocked(true);
-      setChecking(false);
-      return;
-    }
+  const nick = window.localStorage.getItem("player_nick");
 
+  if (!nick) {
+    setLocked(true);
+    setChecking(false);
+    return;
+  }
     fetch("/api/game/status", {
       method: "POST",
       body: JSON.stringify({ nick }),

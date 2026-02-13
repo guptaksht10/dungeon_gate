@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-import Providers from "./providers";
+import ClientRoot from "./ClientRoot";
 
 import ThemeRegistry from "./ThemeRegistry";
 import GlobalAudio from "../components/GlobalAudio";
@@ -53,24 +53,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+   <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable}`}
         style={{ background: "#000", color: "#00ff9c" }}
       >
-        <ThemeRegistry>
-          <SFXPlayer>
-            <LockWrapper>
-            <Providers>
-              <GlobalAudio />
-
-              {children}
-
-              <TerminalBar />
-            </Providers>
-            </LockWrapper>
-          </SFXPlayer>
-        </ThemeRegistry>
+        <ClientRoot>{children}</ClientRoot>
       </body>
     </html>
   );

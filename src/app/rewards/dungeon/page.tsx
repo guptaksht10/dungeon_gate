@@ -26,7 +26,7 @@ export default function ShadowRewardPage() {
   /* ---------------- ACCESS CHECK ---------------- */
 
   useEffect(() => {
-    sfx.play("/sounds/global-lock.mp3");
+    // sfx.play("/sounds/global-lock.mp3");
     
     if (!nick) {
       setCheated(true);
@@ -59,21 +59,21 @@ export default function ShadowRewardPage() {
       .finally(() => setLoading(false));
   }, [nick]);
 
-  useEffect(() => {
-  const handleFirstInteraction = () => {
-    sfx.play("/sounds/global-lock.mp3");
-    window.removeEventListener("click", handleFirstInteraction);
-    window.removeEventListener("keydown", handleFirstInteraction);
-  };
+//   useEffect(() => {
+//   const handleFirstInteraction = () => {
+//     sfx.play("/sounds/global-lock.mp3");
+//     window.removeEventListener("click", handleFirstInteraction);
+//     window.removeEventListener("keydown", handleFirstInteraction);
+//   };
 
-  window.addEventListener("click", handleFirstInteraction);
-  window.addEventListener("keydown", handleFirstInteraction);
+//   window.addEventListener("click", handleFirstInteraction);
+//   window.addEventListener("keydown", handleFirstInteraction);
 
-  return () => {
-    window.removeEventListener("click", handleFirstInteraction);
-    window.removeEventListener("keydown", handleFirstInteraction);
-  };
-}, []);
+//   return () => {
+//     window.removeEventListener("click", handleFirstInteraction);
+//     window.removeEventListener("keydown", handleFirstInteraction);
+//   };
+// }, []);
 
 
   /* ---------------- GLOW PULSE ---------------- */

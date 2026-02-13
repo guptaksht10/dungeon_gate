@@ -32,10 +32,8 @@ export default function PanicMode() {
   const router = useRouter();
   const params = useParams();
 
-  const nick =
-    typeof window !== "undefined"
-      ? localStorage.getItem("player_nick")
-      : null;
+  const [nick, setNick] = useState<string | null>(null);
+
 
   const [time, setTime] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
@@ -52,11 +50,21 @@ export default function PanicMode() {
 
   const tickRef = useRef<HTMLAudioElement>(null);
 
+  useEffect(() => {
+  if (typeof window === "undefined") return;
+  const storedNick = window.localStorage.getItem("player_nick");
+  setNick(storedNick);
+}, []);
+
+
    useEffect(() => {
+    if (nick === null) return; // wait until loaded
+
     if (!nick) {
       router.push("/");
       return;
     }
+
 
     fetch("/api/game/status", {
       method: "POST",
